@@ -9,6 +9,7 @@ capabilities = "CAPABILITY_IAM"
 parameter_overrides = "Stage=\"default\""
 image_repositories = []
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-wzillityuqed"
+disable_rollback = true
 
 
 [staging]
