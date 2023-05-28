@@ -1,3 +1,5 @@
+
+#Transform declaration - fixed. This declaration identifies an AWS CloudFormation template file as an AWS SAM template file
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
@@ -5,7 +7,7 @@ Description: >
 
   Application TODO-LIST with SAM format
 
-# Parameters
+# Parameters: Objects that are declared in the Parameters section cause the sam deploy --guided command to present additional prompts to the user.
 Parameters:
   Stage:
     Type: String
@@ -16,6 +18,7 @@ Parameters:
       - production
     Description: Enter staging or production. Default is default  
 
+# The Globals section is unique to AWS SAM. It defines properties that are common to all your serverless functions and APIs. 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
@@ -25,7 +28,12 @@ Globals:
         DYNAMODB_TABLE: !Ref TodosDynamoDbTable
         ENDPOINT_OVERRIDE: ""
     
+
+
+# Resources section can contain a combination of AWS CloudFormation resources and AWS SAM resources
 Resources:
+  
+  #AWS::Serverless::Function - Creates an AWS Lambda function, an AWS Identity and Access Management (IAM) execution role, and event source mappings that trigger the function.
   
   CreateTodoFunction:
     Type: AWS::Serverless::Function 
@@ -40,6 +48,7 @@ Resources:
           Properties:
             Path: /todos
             Method: post
+  
   ListTodosFunction:
     Type: AWS::Serverless::Function 
     Properties:
@@ -53,6 +62,7 @@ Resources:
           Properties:
             Path: /todos
             Method: get
+  
   GetTodoFunction:
     Type: AWS::Serverless::Function 
     Properties:
@@ -66,6 +76,7 @@ Resources:
           Properties:
             Path: /todos/{id}
             Method: get
+  
   UpdateTodoFunction:
     Type: AWS::Serverless::Function 
     Properties:
@@ -79,6 +90,7 @@ Resources:
           Properties:
             Path: /todos/{id}
             Method: put
+  
   DeleteTodoFunction:
     Type: AWS::Serverless::Function 
     Properties:
@@ -92,7 +104,9 @@ Resources:
           Properties:
             Path: /todos/{id}
             Method: delete
-            
+
+#The AWS::DynamoDB::Table resource creates a DynamoDB table.
+  
   TodosDynamoDbTable:
     Type: AWS::DynamoDB::Table
     Properties: 
