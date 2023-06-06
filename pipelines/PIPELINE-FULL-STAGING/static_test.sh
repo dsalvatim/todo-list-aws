@@ -20,10 +20,12 @@ fi
 flake8 src/*.py
 if [[ $? -ne 0 ]]
 then
+    echo 'Ha fallado el análisis de calidad del código'
     exit 1
 fi
 bandit src/*.py
 if [[ $? -ne 0 ]]
 then
+    echo 'Ha fallado el análisis de seguridad del código'
     exit 1
 fi
